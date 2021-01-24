@@ -1,13 +1,31 @@
 import React from 'react'
-import { View, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware
+} from 'redux'
+import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
 
 import PlacesNavigator from './navigation/PlacesNavigator'
-
+import placesReducer from './store/reducer'
 import Colors from './constants/Colors'
+
+const rootReducer = combineReducers({
+  places: placesReducer
+})
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 function App() {
   return (
-    <PlacesNavigator />
+    <Provider store={store}>
+      <StatusBar
+        barStyle='light-content'
+        backgroundColor={Colors.primary}
+      />
+      <PlacesNavigator />
+    </Provider>
   )
 }
 
