@@ -7,13 +7,7 @@ import Colors from './constants/Colors'
 
 function App() {
   return (
-    <View>
-      <StatusBar
-        barStyle='light-content'
-        backgroundColor={Colors.primary}
-      />
-      <PlacesNavigator />
-    </View>
+    <PlacesNavigator />
   )
 }
 
