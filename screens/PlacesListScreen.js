@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   View,
-  Text,
   StyleSheet,
   Platform,
   FlatList
@@ -30,12 +29,11 @@ function PlacesListScreen(props) {
         renderItem={itemData =>
           <PlaceItem
             title={itemData.item.title}
-            address={'Test address'}
+            address={itemData.item.address}
             image={itemData.item.imageUri}
             onSelect={() =>
               props.navigation.navigate('PlaceDetail', {
-                placeTitle: itemData.item.title,
-                placeId: itemData.item.id
+                place: itemData.item
               })
             }
           />

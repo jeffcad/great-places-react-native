@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  View,
+  TouchableOpacity,
   Image,
   StyleSheet
 } from 'react-native'
@@ -13,11 +13,14 @@ function MapPreview(props) {
 
   if (props.location) {
     const { lat, lng } = props.location
-    imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C${lat},${lng}&key=${API_KEY}`
+    imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=16&size=400x400&maptype=roadmap&markers=color:red%7Clabel:A%7C${lat},${lng}&key=${API_KEY}`
   }
 
   return (
-    <View style={{ ...styles.mapPreview, ...props.style }}>
+    <TouchableOpacity
+      style={{ ...styles.mapPreview, ...props.style }}
+      onPress={props.onPress}
+    >
       {props.location ?
         <Image
           style={styles.mapImage}
@@ -25,7 +28,7 @@ function MapPreview(props) {
         /> :
         props.children
       }
-    </View>
+    </TouchableOpacity>
   )
 
 }
