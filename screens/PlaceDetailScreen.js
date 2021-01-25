@@ -13,6 +13,14 @@ import Colors from '../constants/Colors'
 function PlaceDetailScreen(props) {
 
   const selectedPlace = props.navigation.getParam('place')
+  const selectedLocation = { lat: selectedPlace.lat, lng: selectedPlace.lng }
+
+  const showMapHandler = () => {
+    props.navigation.navigate('Map', {
+      readonly: true,
+      initialLocation: selectedLocation
+    })
+  }
 
   return (
     <ScrollView contentContainerStyle={{
@@ -29,8 +37,9 @@ function PlaceDetailScreen(props) {
           <Text style={styles.address}>{selectedPlace.address}</Text>
         </View>
         <MapPreview
-          location={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
+          location={selectedLocation}
           style={styles.mapPreview}
+          onPress={showMapHandler}
         />
       </View>
     </ScrollView>

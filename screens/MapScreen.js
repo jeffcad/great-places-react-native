@@ -11,16 +11,22 @@ import Colors from '../constants/Colors'
 
 function MapScreen(props) {
 
-  const [selectedLocation, setSelectedLocation] = useState()
+  const initialLocation = props.navigation.getParam('initialLocation')
+  const readonly = props.navigation.getParam('readonly')
+
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation)
 
   const mapRegion = {
-    latitude: 35.50,
-    longitude: 139.40,
+    latitude: initialLocation ? initialLocation.lat : 35.50,
+    longitude: initialLocation ? initialLocation.lng : 139.40,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   }
 
   const selectLocationHandler = (event) => {
+    if (readonly) {
+      return
+    }
     setSelectedLocation({
       lat: event.nativeEvent.coordinate.latitude,
       lng: event.nativeEvent.coordinate.longitude
@@ -65,6 +71,10 @@ function MapScreen(props) {
 
 MapScreen.navigationOptions = (navData) => {
   const saveFunction = navData.navigation.getParam('saveLocation')
+  const readonly = navData.navigation.getParam('readonly')
+  if (readonly) {
+    return {}
+  }
   return {
     headerRight: () =>
       <TouchableOpacity

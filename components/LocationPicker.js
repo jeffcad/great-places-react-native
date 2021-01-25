@@ -66,7 +66,7 @@ function LocationPicker(props) {
   }
 
   const pickOnMapHandler = () => {
-    props.navigation.navigate('Map')
+    props.navigation.navigate('Map', { initialLocation: pickedLocation })
   }
 
   return (
