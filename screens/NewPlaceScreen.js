@@ -12,6 +12,7 @@ import {
 import * as placesActions from '../store/actions'
 import Colors from '../constants/Colors'
 import ImagePicker from '../components/ImagePicker'
+import LocationPicker from '../components/LocationPicker'
 
 function NewPlaceScreen(props) {
 
@@ -47,11 +48,14 @@ function NewPlaceScreen(props) {
         <ImagePicker
           onImageTaken={imageTakenHandler}
         />
-        <Button
-          title='Save Place'
-          color={Colors.primary}
-          onPress={savePlaceHandler}
-        />
+        <LocationPicker />
+        <View style={styles.buttonContainer}>
+          <Button
+            title='Save Place'
+            color={Colors.accent}
+            onPress={savePlaceHandler}
+          />
+        </View>
       </View>
     </ScrollView >
   )
@@ -75,6 +79,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingVertical: 4,
     paddingHorizontal: 2
+  },
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: 'center'
   }
 })
 

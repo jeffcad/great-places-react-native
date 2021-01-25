@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   View,
   Text,
@@ -11,10 +11,16 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 import CustomHeaderButton from '../components/HeaderButton'
 import PlaceItem from '../components/PlaceItem'
+import * as placesActions from '../store/actions'
 
 function PlacesListScreen(props) {
 
   const places = useSelector(state => state.places.places)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(placesActions.loadPlaces())
+  }, [dispatch])
 
   return (
     <View>
