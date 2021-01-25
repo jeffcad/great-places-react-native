@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native'
 
 import MapPreview from '../components/MapPreview'
@@ -47,8 +48,17 @@ function PlaceDetailScreen(props) {
 }
 
 PlaceDetailScreen.navigationOptions = (navData) => {
+  const deleteFunction = navData.navigation.getParam('deleteFunction')
+  const idToDelete = navData.navigation.getParam('place').id
   return {
-    headerTitle: navData.navigation.getParam('place').title
+    headerTitle: navData.navigation.getParam('place').title,
+    headerRight: () =>
+      <TouchableOpacity
+        style={styles.headerButton}
+        onPress={() => deleteFunction(idToDelete)}
+      >
+        <Text style={styles.headerButtonText}>Delete</Text>
+      </TouchableOpacity>
   }
 }
 
@@ -87,6 +97,13 @@ const styles = StyleSheet.create({
     height: 300,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10
+  },
+  headerButton: {
+    marginHorizontal: 20
+  },
+  headerButtonText: {
+    fontSize: 16,
+    color: Platform.OS === 'ios' ? Colors.primary : 'white'
   }
 })
 

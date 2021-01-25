@@ -1,4 +1,4 @@
-import { ADD_PLACE, SET_PLACES } from './actions'
+import { ADD_PLACE, REMOVE_PLACE, SET_PLACES } from './actions'
 import Place from '../models/place'
 
 const initialState = {
@@ -12,7 +12,7 @@ const placesReducer = (state = initialState, action) => {
         action.placeData.id.toString(),
         action.placeData.title,
         action.placeData.image,
-        action.placeData, address,
+        action.placeData.address,
         action.placeData.coords.lat,
         action.placeData.coords.lng
       )
@@ -33,6 +33,11 @@ const placesReducer = (state = initialState, action) => {
             place.lng
           )
         )
+      }
+    case REMOVE_PLACE:
+      return {
+        ...state,
+        places: state.places.filter(place => place.id !== action.idToDelete)
       }
     default:
       return state

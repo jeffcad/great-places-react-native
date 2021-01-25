@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Platform,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
@@ -21,6 +22,22 @@ function PlacesListScreen(props) {
     dispatch(placesActions.loadPlaces())
   }, [dispatch])
 
+  const deletePlaceHandler = (idToDelete) => {
+    Alert.alert('Warning!', 'Are you sure you want to delete this?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          dispatch(placesActions.removePlace(idToDelete))
+          props.navigation.navigate('Places')
+        }
+      },
+      {
+        text: 'No',
+        style: 'cancel'
+      }
+    ])
+  }
+
   return (
     <View>
       <FlatList
@@ -33,7 +50,8 @@ function PlacesListScreen(props) {
             image={itemData.item.imageUri}
             onSelect={() =>
               props.navigation.navigate('PlaceDetail', {
-                place: itemData.item
+                place: itemData.item,
+                deleteFunction: deletePlaceHandler
               })
             }
           />

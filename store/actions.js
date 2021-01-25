@@ -1,10 +1,11 @@
 import * as FileSystem from 'expo-file-system'
 
-import { insertPlace, fetchPlaces } from '../helpers/db'
+import { insertPlace, fetchPlaces, deletePlace } from '../helpers/db'
 import { API_KEY } from '../noGithub'
 
 export const ADD_PLACE = 'ADD_PLACE'
 export const SET_PLACES = 'SET_PLACES'
+export const REMOVE_PLACE = 'REMOVE_PLACE'
 
 export const addPlace = (title, image, location) => {
   return async (dispatch) => {
@@ -60,6 +61,21 @@ export const loadPlaces = () => {
       dispatch({
         type: SET_PLACES,
         places: dbResult.rows._array
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+}
+
+export const removePlace = (idToDelete) => {
+  return async (dispatch) => {
+    try {
+      await deletePlace(idToDelete)
+
+      dispatch({
+        type: REMOVE_PLACE,
+        idToDelete
       })
     } catch (err) {
       throw err

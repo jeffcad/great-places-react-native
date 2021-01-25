@@ -17,8 +17,8 @@ function MapScreen(props) {
   const [selectedLocation, setSelectedLocation] = useState(initialLocation)
 
   const mapRegion = {
-    latitude: initialLocation ? initialLocation.lat : 35.50,
-    longitude: initialLocation ? initialLocation.lng : 139.40,
+    latitude: initialLocation ? initialLocation.lat : 35.68151505204989,
+    longitude: initialLocation ? initialLocation.lng : 139.76706042375613,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   }
